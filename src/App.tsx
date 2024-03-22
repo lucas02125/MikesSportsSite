@@ -1,25 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import CardList from "./Components/CardList/CardList";
+import Navbar from "./Components/Navbar/Navbar";
+import { Outlet } from "react-router";
+
+const leagues = [
+  { id: 2002, name: "Bundasliga", icon: "DEU" },
+  { id: 2014, name: "La Liga", icon: "ESP" },
+  { id: 2015, name: "Ligue 1", icon: "FRA" },
+  { id: 2019, name: "Serie A", icon: "ITA" },
+  { id: 2021, name: "Premier League", icon: "ENG" },
+  // { id: 2002, name: "BL1", icon: "DEU" },
+  // { id: 2014, name: "PD", icon: "ESP" },
+  // { id: 2015, name: "FL1", icon: "FRA" },
+  // { id: 2019, name: "SA", icon: "ITA" },
+  // { id: 2021, name: "PL", icon: "ENG" },
+];
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar leagues={leagues} />
+      <Outlet />
+    </>
   );
 }
 
