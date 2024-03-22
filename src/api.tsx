@@ -12,12 +12,12 @@ export const getClubCompetition = async (query: string) => {
       {
         params: { id: query },
         headers: {
-          "X-RapidAPI-Key":
-            "46a422f6a9msh8f9d4cbad514226p1cc02cjsnedf495f46fe1",
+          "X-RapidAPI-Key": process.env.REACT_APP_API_KEY,
           "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
         },
       }
     );
+
     return data;
   } catch (error: any) {
     console.log("error message from API: ", error.message);
