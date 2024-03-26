@@ -1,12 +1,32 @@
 import { useEffect, useState } from "react";
-import League from "../../Components/League/League";
 import { ClubCompetitions } from "../../footballteams";
 import { getClubCompetition } from "../../api";
-import { useOutletContext } from "react-router";
+import Table from "../../Components/Table/Table";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
 interface Props {}
 
+const TableConfig = [
+  {
+    label: "Nation",
+    render: (league: ClubCompetitions) => (
+      <img src={league.flag} alt={league.name} className="w-32 h-32" />
+    ),
+  },
+  {
+    label: "League Name",
+    render: (league: ClubCompetitions, isLink: boolean) => {
+      return isLink ? (
+        <Link to={league.id + "/standings"}>{league.name}</Link>
+      ) : (
+        <p>{league.name}</p>
+      );
+    },
+  },
+];
+
 const LeaguePage = (props: Props) => {
+  const location = useLocation();
   const leaguesList = [
     { id: 39, name: "Premier League", icon: "GB" },
     { id: 135, name: "Serie A", icon: "IT" },
@@ -15,13 +35,37 @@ const LeaguePage = (props: Props) => {
     { id: 78, name: "Bundesliga", icon: "DE" },
   ];
 
-  const [leaguesetter, setLeauge] = useState<ClubCompetitions>();
+  const [leaguesetter, setLeauge] = useState<ClubCompetitions[]>([]);
 
   useEffect(() => {
     const fetchedData = async () => {
-      const result = await getClubCompetition(leaguesList[0].id.toString());
-      console.log(result!.data.response[0].league);
-      setLeauge(result!.data.response[0].league);
+      // const responses = Promise.all( <-- THIS OPTION WILL CALL THE API
+      //   leaguesList.map(async (item) => {
+      //     const result = await getClubCompetition(item.id.toString());
+      //     let responseData = result!.data.response[0].league;
+      //     setLeauge((prevLeauge) => [...prevLeauge, responseData]);
+      //   })
+      // );
+
+      // {
+
+      //const result = await getClubCompetition(leaguesList[0].id.toString());
+      //let responseData = result!.data.response[0].league;
+      const responseObject = {
+        id: 39,
+        logo: "https://media.api-sports.io/football/leagues/39.png",
+        name: "Premier League",
+        type: "League",
+        country: "England",
+        flag: "https://media.api-sports.io/flags/gb.svg",
+        season: 2023,
+      };
+
+      setLeauge((prevLeauge) => [...prevLeauge, responseObject]);
+
+      // }
+
+      //console.log(leaguesetter);
     };
 
     fetchedData();
@@ -29,10 +73,12 @@ const LeaguePage = (props: Props) => {
 
   return (
     <>
-      {leaguesetter ? (
-        <League leagueData={leaguesetter} />
+      {location.pathname === "/league" && leaguesetter ? (
+        <Table config={TableConfig} data={leaguesetter} isLink={true} />
+      ) : location.pathname !== "/league" ? (
+        <Outlet />
       ) : (
-        <h1>No leagues here </h1>
+        <h1>No Leagues here</h1>
       )}
     </>
   );

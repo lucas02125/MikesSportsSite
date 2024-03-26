@@ -5,6 +5,7 @@ import TeamPage from "../Pages/TeamPage/TeamPage";
 import PlayerPage from "../Pages/PlayerPage/PlayerPage";
 import SeachPage from "../Pages/SearchPage/SeachPage";
 import HomePage from "../Pages/HomePage/HomePage";
+import StandingsPage from "../Pages/StandingsPage/StandingsPage";
 
 export const router = createBrowserRouter([
   {
@@ -14,13 +15,9 @@ export const router = createBrowserRouter([
       { path: "", element: <HomePage /> },
       { path: "search", element: <SeachPage /> },
       {
-        path: "league/:ticker",
+        path: "league",
         element: <LeaguePage />,
-        children: [
-          { path: ":teams", element: <TeamPage /> },
-          { path: ":player", element: <PlayerPage /> },
-          { path: ":standings", element: <PlayerPage /> },
-        ],
+        children: [{ path: ":ticker/standings", element: <StandingsPage /> }],
       },
       // { path: "teams", element: <TeamPage /> },
       // { path: "player", element: <Player /> },

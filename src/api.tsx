@@ -10,7 +10,7 @@ export const getClubCompetition = async (query: string) => {
     const data = await axios.get(
       `https://api-football-v1.p.rapidapi.com/v3/leagues/`,
       {
-        params: { id: query },
+        params: { id: query, current: true },
         headers: {
           "X-RapidAPI-Key": process.env.REACT_APP_API_KEY,
           "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
@@ -21,5 +21,24 @@ export const getClubCompetition = async (query: string) => {
     return data;
   } catch (error: any) {
     console.log("error message from API: ", error.message);
+  }
+};
+
+export const getLeagueStandings = async (query: string) => {
+  try {
+    const data = await axios.get(
+      "https://api-football-v1.p.rapidapi.com/v3/standings",
+      {
+        params: { league: query, season: "2023" },
+        headers: {
+          "X-RapidAPI-Key": process.env.REACT_APP_API_KEY,
+          "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
+        },
+      }
+    );
+
+    return data;
+  } catch (error: any) {
+    console.log("Error message from API: ", error.message);
   }
 };
