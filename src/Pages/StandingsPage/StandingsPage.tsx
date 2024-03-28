@@ -1,13 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { useOutletContext, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { getLeagueStandings } from "../../api";
 import { LeagueStandings } from "../../footballteams";
-import LeaguePage from "../LeaguePage/LeaguePage";
 import Table from "../../Components/Table/Table";
-import { CheckingProgression } from "../../Components/Helpers/StandingFormatting";
+import {
+  CheckingProgression,
+  GetGamesPlayed,
+  GetGamesDrawn,
+  GetGamesWon,
+  GetGamesLost,
+  GetGoalsFor,
+  GetGoalsAgainst,
+  GetTotalPoints,
+  DisplayingTeamsForm,
+} from "../../Components/Helpers/StandingFormatting";
+import Title from "../../Components/Title/Title";
+import Dropdown from "../../Components/Dropdown/Dropdown";
 
 type Props = {};
-const FixutreName = "All Matches";
+const FixutreTypes = ["All Matches", "Home", "Away"];
 const LeagueConfig = [
   {
     label: "Position",
@@ -32,31 +43,76 @@ const LeagueConfig = [
     render: (standing: LeagueStandings) => standing.team.name,
   },
   {
-    label: "Games Played",
-    render: (standing: LeagueStandings) => GetGamesPlayed(standing, FixutreName);
-  }
+    label: "Played",
+    render: (standing: LeagueStandings) =>
+      GetGamesPlayed(standing, FixutreTypes[0]),
+  },
+  {
+    label: "Won",
+    render: (standing: LeagueStandings) =>
+      GetGamesWon(standing, FixutreTypes[0]),
+  },
+  {
+    label: "Drawn",
+    render: (standing: LeagueStandings) =>
+      GetGamesDrawn(standing, FixutreTypes[0]),
+  },
+  {
+    label: "Lost",
+    render: (standing: LeagueStandings) =>
+      GetGamesLost(standing, FixutreTypes[0]),
+  },
+  {
+    label: "GF",
+    render: (standing: LeagueStandings) =>
+      GetGoalsFor(standing, FixutreTypes[0]),
+  },
+  {
+    label: "GA",
+    render: (standing: LeagueStandings) =>
+      GetGoalsAgainst(standing, FixutreTypes[0]),
+  },
+  {
+    label: "Points",
+    render: (standing: LeagueStandings) =>
+      GetTotalPoints(standing, FixutreTypes[0]),
+  },
+  {
+    label: "Form",
+    render: (standing: LeagueStandings) => DisplayingTeamsForm(standing.form),
+  },
 ];
 
 const StandingsPage = (props: Props) => {
   let { ticker } = useParams();
   const [standings, setStandings] = useState<LeagueStandings[]>([]);
+  const [selectFixtureType, setSelectedFixtureType] = useState<string>(
+    FixutreTypes[0]
+  );
 
   useEffect(() => {
     const getLeagueData = async () => {
       const result = await getLeagueStandings(ticker!);
-      console.log(result!.data.response[0].league.standings[0]);
       let responseData = result!.data.response[0].league.standings[0];
       setStandings(responseData);
     };
     getLeagueData();
   }, []);
 
+  const handleFixtureTypeChange = (value: string) => {
+    setSelectedFixtureType(value);
+  };
+
   return (
     <>
-      {standings ? (
-        <Table config={LeagueConfig} data={standings} isLink={false} />
+      {standings.length > 0 ? (
+        <div>
+          <Title title={standings[0].group} />
+          <Dropdown values={FixutreTypes} onChange={handleFixtureTypeChange} />
+          <Table config={LeagueConfig} data={standings} isLink={false} />
+        </div>
       ) : (
-        <h1>No LeaguePage</h1>
+        <h1>No Standings available</h1>
       )}
     </>
   );

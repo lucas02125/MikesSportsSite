@@ -20,13 +20,13 @@ const Table = ({ config, data, isLink }: Props) => {
     );
   });
 
-  const renderedRows = data.map((leagueName: any) => {
+  const renderedRows = data.map((rowValue: any) => {
     return (
-      <tr key={leagueName.id}>
+      <tr key={rowValue.id}>
         {config.map((val: any) => {
           return (
             <td className="p-4 text-left text-xl font-large text-fray-500 uppercase tracking-wider">
-              {val.render(leagueName, isLink)}
+              {val.render(rowValue, isLink)}
             </td>
           );
         })}
@@ -36,9 +36,6 @@ const Table = ({ config, data, isLink }: Props) => {
 
   return (
     <div className="bg-white shadowed rounded-lg p-4 sm:p-6 xl:p-8">
-      <h2 className="mb-3 mt-3 text-3xl font-semibold text-center md:text-4xl">
-        Leagues
-      </h2>
       <table className="mx-auto">
         <thead className="min-w-full divide-y divide=gray-200 m-5">
           {renderedHeader}

@@ -17,9 +17,9 @@ export interface LeagueStandings{
     form: string;
     status: string;
     description: string | undefined;
-    all: GoalInfo;
-    home: GoalInfo;
-    away: GoalInfo;
+    all: FixtureInfo;
+    home: FixtureInfo;
+    away: FixtureInfo;
     update: string;
 }
 
@@ -29,11 +29,15 @@ export interface TeamInformation {
     logo: string;
 }
 
+export interface FixtureInfo {
+    played: number;
+    win: number;
+    draw: number;
+    lose: number;
+    goals: GoalInfo;
+}
+
 export interface GoalInfo {
-    gamesPlayed: number;
-    wins: number;
-    draws: number;
-    losses: number;
-    goalsFor: number;
-    goalsAgainst: number;
+    for: number;
+    against: number;
 }

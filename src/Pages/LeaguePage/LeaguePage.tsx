@@ -3,6 +3,8 @@ import { ClubCompetitions } from "../../footballteams";
 import { getClubCompetition } from "../../api";
 import Table from "../../Components/Table/Table";
 import { Link, Outlet, useLocation } from "react-router-dom";
+import Title from "../../Components/Title/Title";
+import Dropdown from "../../Components/Dropdown/Dropdown";
 
 interface Props {}
 
@@ -10,7 +12,7 @@ const TableConfig = [
   {
     label: "Nation",
     render: (league: ClubCompetitions) => (
-      <img src={league.flag} alt={league.name} className="w-32 h-32" />
+      <img src={league.logo} alt={league.name} className="w-20 h-20" />
     ),
   },
   {
@@ -39,7 +41,7 @@ const LeaguePage = (props: Props) => {
 
   useEffect(() => {
     const fetchedData = async () => {
-      // const responses = Promise.all( <-- THIS OPTION WILL CALL THE API
+      // const responses = Promise.all(
       //   leaguesList.map(async (item) => {
       //     const result = await getClubCompetition(item.id.toString());
       //     let responseData = result!.data.response[0].league;
@@ -49,8 +51,6 @@ const LeaguePage = (props: Props) => {
 
       // {
 
-      //const result = await getClubCompetition(leaguesList[0].id.toString());
-      //let responseData = result!.data.response[0].league;
       const responseObject = {
         id: 39,
         logo: "https://media.api-sports.io/football/leagues/39.png",
@@ -63,7 +63,7 @@ const LeaguePage = (props: Props) => {
 
       setLeauge((prevLeauge) => [...prevLeauge, responseObject]);
 
-      // }
+      //}
 
       //console.log(leaguesetter);
     };
@@ -74,7 +74,10 @@ const LeaguePage = (props: Props) => {
   return (
     <>
       {location.pathname === "/league" && leaguesetter ? (
-        <Table config={TableConfig} data={leaguesetter} isLink={true} />
+        <div>
+          <Title title="Leagues" />
+          <Table config={TableConfig} data={leaguesetter} isLink={true} />
+        </div>
       ) : location.pathname !== "/league" ? (
         <Outlet />
       ) : (
