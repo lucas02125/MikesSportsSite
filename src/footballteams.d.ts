@@ -16,7 +16,7 @@ export interface LeagueStandings{
     group: string;
     form: string;
     status: string;
-    description: string | undefined;
+    description: string;
     all: FixtureInfo;
     home: FixtureInfo;
     away: FixtureInfo;
@@ -40,4 +40,13 @@ export interface FixtureInfo {
 export interface GoalInfo {
     for: number;
     against: number;
+}
+
+export interface PlayerSquads {
+    id: number;
+    name: string;
+    age: number;
+    number: number;
+    position: string;
+    photo: string;
 }

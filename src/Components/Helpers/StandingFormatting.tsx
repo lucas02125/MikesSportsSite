@@ -31,9 +31,9 @@ export const GetGamesDrawn = (
   standing: LeagueStandings,
   fixture: string
 ): number => {
-  if ((fixture = "All Matches")) {
+  if (fixture === "All Matches") {
     return standing.all.draw;
-  } else if ((fixture = "Home")) {
+  } else if (fixture === "Home") {
     return standing.home.draw;
   } else {
     return standing.away.draw;
@@ -44,9 +44,9 @@ export const GetGamesWon = (
   standing: LeagueStandings,
   fixture: string
 ): number => {
-  if ((fixture = "All Matches")) {
+  if (fixture === "All Matches") {
     return standing.all.win;
-  } else if ((fixture = "Home")) {
+  } else if (fixture === "Home") {
     return standing.home.win;
   } else {
     return standing.away.win;
@@ -57,9 +57,9 @@ export const GetGamesLost = (
   standing: LeagueStandings,
   fixture: string
 ): number => {
-  if ((fixture = "All Matches")) {
+  if (fixture === "All Matches") {
     return standing.all.lose;
-  } else if ((fixture = "Home")) {
+  } else if (fixture === "Home") {
     return standing.home.lose;
   } else {
     return standing.away.lose;
@@ -70,9 +70,9 @@ export const GetGoalsFor = (
   standing: LeagueStandings,
   fixture: string
 ): number => {
-  if ((fixture = "All Matches")) {
+  if (fixture === "All Matches") {
     return standing.all.goals.for;
-  } else if ((fixture = "Home")) {
+  } else if (fixture === "Home") {
     return standing.home.goals.for;
   } else {
     return standing.away.goals.for;
@@ -83,9 +83,9 @@ export const GetGoalsAgainst = (
   standing: LeagueStandings,
   fixture: string
 ): number => {
-  if ((fixture = "All Matches")) {
+  if (fixture === "All Matches") {
     return standing.all.goals.against;
-  } else if ((fixture = "Home")) {
+  } else if (fixture === "Home") {
     return standing.home.goals.against;
   } else {
     return standing.away.goals.against;
@@ -96,9 +96,9 @@ export const GetTotalPoints = (
   standing: LeagueStandings,
   fixture: string
 ): any => {
-  if ((fixture = "All Matches")) {
+  if (fixture === "All Matches") {
     return <b>{standing.points}</b>;
-  } else if ((fixture = "Home")) {
+  } else if (fixture === "Home") {
     let updatedPoints = standing.home.win * 3 + standing.home.draw * 1;
     return <b>{updatedPoints}</b>;
   } else {

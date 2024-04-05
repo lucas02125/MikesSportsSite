@@ -13,9 +13,6 @@ const Navbar = ({ leagues }: Props) => {
   const handleMouseEnter = () => {
     setListVisible(true);
   };
-  const handleMouseLeave = () => {
-    setListVisible(false);
-  };
 
   // const handleSVGClick = (league: any) => {
   //   setSelectedLeague(league);

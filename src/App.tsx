@@ -1,5 +1,4 @@
 import "./App.css";
-import CardList from "./Components/CardList/CardList";
 import Navbar from "./Components/Navbar/Navbar";
 import { Outlet } from "react-router";
 

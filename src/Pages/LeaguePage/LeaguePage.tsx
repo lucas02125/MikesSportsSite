@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { ClubCompetitions } from "../../footballteams";
-import { getClubCompetition } from "../../api";
 import Table from "../../Components/Table/Table";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import Title from "../../Components/Title/Title";
-import Dropdown from "../../Components/Dropdown/Dropdown";
 
 interface Props {}
 
@@ -17,13 +15,9 @@ const TableConfig = [
   },
   {
     label: "League Name",
-    render: (league: ClubCompetitions, isLink: boolean) => {
-      return isLink ? (
-        <Link to={league.id + "/standings"}>{league.name}</Link>
-      ) : (
-        <p>{league.name}</p>
-      );
-    },
+    render: (league: ClubCompetitions) => (
+      <Link to={league.id + "/standings"}>{league.name}</Link>
+    ),
   },
 ];
 
@@ -65,7 +59,7 @@ const LeaguePage = (props: Props) => {
 
       //}
 
-      //console.log(leaguesetter);
+      console.log(leaguesetter);
     };
 
     fetchedData();
@@ -75,8 +69,8 @@ const LeaguePage = (props: Props) => {
     <>
       {location.pathname === "/league" && leaguesetter ? (
         <div>
-          <Title title="Leagues" />
-          <Table config={TableConfig} data={leaguesetter} isLink={true} />
+          <Title title="Leagues" logo="" />
+          <Table config={TableConfig} data={leaguesetter} />
         </div>
       ) : location.pathname !== "/league" ? (
         <Outlet />

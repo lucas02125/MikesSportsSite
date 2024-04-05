@@ -1,14 +1,9 @@
-import React from "react";
-import { ClubCompetitions } from "../../footballteams";
-import { Link } from "react-router-dom";
-
 interface Props {
   config: any;
   data: any;
-  isLink: boolean;
 }
 
-const Table = ({ config, data, isLink }: Props) => {
+const Table = ({ config, data }: Props) => {
   const renderedHeader = config.map((config: any) => {
     return (
       <th
@@ -26,7 +21,7 @@ const Table = ({ config, data, isLink }: Props) => {
         {config.map((val: any) => {
           return (
             <td className="p-4 text-left text-xl font-large text-fray-500 uppercase tracking-wider">
-              {val.render(rowValue, isLink)}
+              {val.render(rowValue)}
             </td>
           );
         })}

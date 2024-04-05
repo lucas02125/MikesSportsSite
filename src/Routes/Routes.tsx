@@ -19,8 +19,10 @@ export const router = createBrowserRouter([
         element: <LeaguePage />,
         children: [{ path: ":ticker/standings", element: <StandingsPage /> }],
       },
-      // { path: "teams", element: <TeamPage /> },
-      // { path: "player", element: <Player /> },
+      {
+        path: "clubs/:ticker",
+        element: <TeamPage />,
+      },
     ],
   },
 ]);
