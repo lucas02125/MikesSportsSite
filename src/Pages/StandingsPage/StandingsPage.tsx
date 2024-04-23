@@ -104,14 +104,6 @@ const StandingsPage = (props: Props) => {
         render: (standing: LeagueStandings) =>
           DisplayingTeamsForm(standing.form),
       },
-      // {
-      //   render: (standing: LeagueStandings) => {
-      //     setLeagueStatus((prevStatus) => [
-      //       ...prevStatus,
-      //       standing.description,
-      //     ]);
-      //   },
-      // },
     ];
     setLeagueConfig(newLeagueConfig);
   }, [selectFixtureType]);

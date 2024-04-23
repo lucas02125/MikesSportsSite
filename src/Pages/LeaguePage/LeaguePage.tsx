@@ -67,12 +67,12 @@ const LeaguePage = (props: Props) => {
 
   return (
     <>
-      {location.pathname === "/league" && leaguesetter ? (
+      {location.pathname === "/leagues" && leaguesetter ? (
         <div>
           <Title title="Leagues" logo="" />
           <Table config={TableConfig} data={leaguesetter} />
         </div>
-      ) : location.pathname !== "/league" ? (
+      ) : location.pathname !== "/leagues" ? (
         <Outlet />
       ) : (
         <h1>No Leagues here</h1>
