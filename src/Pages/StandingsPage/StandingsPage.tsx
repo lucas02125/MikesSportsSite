@@ -61,7 +61,7 @@ const StandingsPage = (props: Props) => {
       {
         subtitle: "ClubName",
         render: (standing: LeagueStandings) => (
-          <Link to={"/clubs/" + standing.team.id}>{standing.team.name}</Link>
+          <Link to={`/club/${standing.team.id}`}>{standing.team.name}</Link>
         ),
       },
       {

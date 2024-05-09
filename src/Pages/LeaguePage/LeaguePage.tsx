@@ -16,7 +16,7 @@ const TableConfig = [
   {
     label: "League Name",
     render: (league: ClubCompetitions) => (
-      <Link to={league.id + "/standings"}>{league.name}</Link>
+      <Link to={league.id + "/standing"}>{league.name}</Link>
     ),
   },
 ];
@@ -67,12 +67,12 @@ const LeaguePage = (props: Props) => {
 
   return (
     <>
-      {location.pathname === "/leagues" && leaguesetter ? (
+      {location.pathname === "/league" && leaguesetter ? (
         <div>
           <Title title="Leagues" logo="" />
           <Table config={TableConfig} data={leaguesetter} />
         </div>
-      ) : location.pathname !== "/leagues" ? (
+      ) : location.pathname !== "/league" ? (
         <Outlet />
       ) : (
         <h1>No Leagues here</h1>

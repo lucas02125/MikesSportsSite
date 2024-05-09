@@ -1,4 +1,3 @@
-import React from "react";
 import { PlayerSquads } from "../../footballteams";
 import PlayerCard from "../PlayerCard/PlayerCard";
 

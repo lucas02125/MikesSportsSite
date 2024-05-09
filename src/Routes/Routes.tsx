@@ -15,17 +15,16 @@ export const router = createBrowserRouter([
       { path: "", element: <HomePage /> },
       { path: "search", element: <SeachPage /> },
       {
-        path: "leagues",
+        path: "league",
         element: <LeaguePage />,
-        children: [{ path: ":ticker/standings", element: <StandingsPage /> }],
+        children: [{ path: ":ticker/standing", element: <StandingsPage /> }],
       },
       {
-        path: "clubs/:ticker",
+        path: "club/:club",
         element: <TeamPage />,
-      },
-      {
-        path: "players/:ticker/:position",
-        element: <PlayerPage />,
+        children: [
+          { path: "player/:player/:position", element: <PlayerPage /> },
+        ],
       },
     ],
   },

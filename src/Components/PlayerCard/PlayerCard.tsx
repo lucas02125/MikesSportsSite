@@ -1,13 +1,16 @@
 import { PlayerSquads } from "../../footballteams";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 
-type Props = { playerValue: PlayerSquads; playerPosition: string };
+type Props = {
+  playerValue: PlayerSquads;
+  playerPosition: string;
+};
 
 function PlayerCard({ playerValue, playerPosition }: Props) {
   return (
     <div className="flex items-center">
       <Link
-        to={`/players/${playerValue.id}/${playerPosition}`}
+        to={`player/${playerValue.id}/${playerPosition}`}
         className="block w-4/5 p-6 space-y-6 text-center rounded-lg shadow-lg"
       >
         <img

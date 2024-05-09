@@ -60,3 +60,24 @@ export const getSquadForTeam = async (query: string) => {
     console.log("Error message from API: ", error.message);
   }
 };
+
+export const getPlayerStatistic = async (
+  player: string | undefined,
+  club: string | undefined
+) => {
+  try {
+    const data = await axios.get(
+      "https://api-football-v1.p.rapidapi.com/v3/players",
+      {
+        params: { id: player, team: club, season: "2023" },
+        headers: {
+          "X-RapidAPI-Key": process.env.REACT_APP_API_KEY,
+          "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
+        },
+      }
+    );
+    return data;
+  } catch (error: any) {
+    console.log("Error message from API: ", error.message);
+  }
+};
