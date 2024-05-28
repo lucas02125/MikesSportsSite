@@ -3,6 +3,7 @@ import { ClubCompetitions } from "../../footballteams";
 import Table from "../../Components/Table/Table";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import Title from "../../Components/Title/Title";
+import Spinner from "../../Components/Spinner/Spinner";
 
 interface Props {}
 
@@ -45,17 +46,29 @@ const LeaguePage = (props: Props) => {
 
       // {
 
-      const responseObject = {
-        id: 39,
-        logo: "https://media.api-sports.io/football/leagues/39.png",
-        name: "Premier League",
-        type: "League",
-        country: "England",
-        flag: "https://media.api-sports.io/flags/gb.svg",
-        season: 2023,
-      };
+      const responseObject = [
+        {
+          id: 39, //45
+          logo: "https://media.api-sports.io/football/leagues/39.png",
+          name: "Premier League",
+          type: "League",
+          country: "England",
+          flag: "https://media.api-sports.io/flags/gb.svg",
+          season: 2023,
+        },
+        {
+          id: 2,
+          logo: "https://media.api-sports.io/football/leagues/2.png",
+          name: "UEFA Champions League",
+          type: "Cup",
+          country: "World",
+          flag: "",
+          season: 2023,
+        },
+      ];
 
-      setLeauge((prevLeauge) => [...prevLeauge, responseObject]);
+      setLeauge(responseObject);
+      //setLeauge((prevLeauge) => [...prevLeauge, responseObject]);
 
       //}
 
@@ -75,7 +88,7 @@ const LeaguePage = (props: Props) => {
       ) : location.pathname !== "/league" ? (
         <Outlet />
       ) : (
-        <h1>No Leagues here</h1>
+        <Spinner />
       )}
     </>
   );

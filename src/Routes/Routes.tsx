@@ -23,7 +23,10 @@ export const router = createBrowserRouter([
         path: "club/:club",
         element: <TeamPage />,
         children: [
-          { path: "player/:player/:position", element: <PlayerPage /> },
+          {
+            path: "player/:player/:position",
+            element: <PlayerPage />,
+          },
         ],
       },
     ],

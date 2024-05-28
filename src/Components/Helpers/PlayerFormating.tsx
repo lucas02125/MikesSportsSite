@@ -1,4 +1,5 @@
 import { BsEmojiFrown, BsEmojiSmile } from "react-icons/bs";
+import { AiTwotoneCopyrightCircle } from "react-icons/ai";
 
 type Props = {};
 
@@ -27,7 +28,20 @@ export const CalculateShotAcc = (
 ): string => {
   const percentage = ((onTarget! / total!) * 100).toFixed(1);
   if (percentage === "NaN") {
-    return "";
+    return "0%";
   }
   return `${percentage}%`;
+};
+
+export const CalculateRedCards = (
+  yellowToRed: number,
+  straightRed: number
+): number => {
+  return yellowToRed + straightRed;
+};
+
+export const SetCaptaincy = (isCaptain: boolean) => {
+  if (isCaptain === true) {
+    return <AiTwotoneCopyrightCircle />;
+  }
 };

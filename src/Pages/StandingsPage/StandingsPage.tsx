@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getLeagueStandings } from "../../api";
-import { LeagueStandings } from "../../footballteams";
+import { LeagueInformation, LeagueStandings } from "../../footballteams";
 import Table from "../../Components/Table/Table";
 import {
   CheckingProgression,
@@ -16,24 +16,34 @@ import {
 } from "../../Components/Helpers/StandingFormatting";
 import Title from "../../Components/Title/Title";
 import Dropdown from "../../Components/Dropdown/Dropdown";
+import Spinner from "../../Components/Spinner/Spinner";
 
 type Props = {};
 const FixutreTypes = ["All Matches", "Home", "Away"];
 
 const StandingsPage = (props: Props) => {
   let { ticker } = useParams();
-  const [standings, setStandings] = useState<LeagueStandings[]>([]);
+  const [standings, setStandings] = useState<LeagueStandings[][]>([]);
+  const [tournamentTitle, setTitle] = useState<LeagueInformation>();
   const [LeagueConfig, setLeagueConfig] = useState<any[]>([]); // Initialize LeagueConfig with initial fixture type
   const [selectFixtureType, setSelectedFixtureType] = useState<string>(
     FixutreTypes[0]
   );
 
+  const getLeagueData = async () => {
+    const result = await getLeagueStandings(ticker!);
+    let responseData = result!.data.response[0]?.league.standings;
+    let titleResponse = result!.data.response[0]?.league;
+    setStandings(responseData);
+    setTitle(titleResponse);
+    standings.forEach((obj) => {
+      obj.forEach((team) => {
+        console.log(team.team.name);
+      });
+    });
+  };
+
   useEffect(() => {
-    const getLeagueData = async () => {
-      const result = await getLeagueStandings(ticker!);
-      let responseData = result!.data.response[0].league.standings[0];
-      setStandings(responseData);
-    };
     getLeagueData();
   }, []);
 
@@ -115,18 +125,35 @@ const StandingsPage = (props: Props) => {
 
   return (
     <>
-      {standings.length > 0 ? (
+      {standings && tournamentTitle ? (
         <div>
-          <Title title={standings[0].group} logo={standings[0].team.logo} />
+          <Title title={tournamentTitle.name} logo={tournamentTitle.logo} />
           <Dropdown
             values={FixutreTypes}
             dropdownName={"Filter Fixtures"}
             onChange={handleFixtureTypeChange}
           />
-          <Table config={LeagueConfig} data={standings} />
+          {standings.map((singleStanding, index) => (
+            <div key={index}>
+              {standings.length > 1 ? (
+                <div className="flex justify-center items-center">
+                  <div className="w-full lg:w-7/12 xl:7/12 px-4">
+                    <h1 className="font-semibold text-lg">
+                      {singleStanding[0].group}
+                    </h1>
+                  </div>
+                </div>
+              ) : (
+                <p></p>
+              )}
+              <Table config={LeagueConfig} data={singleStanding} />
+            </div>
+          ))}
         </div>
       ) : (
-        <h1>No Standings available</h1>
+        <div className="flex justify-center items-center">
+          <Spinner />
+        </div>
       )}
     </>
   );
