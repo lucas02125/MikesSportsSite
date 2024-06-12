@@ -22,9 +22,11 @@ function PlayerInfo({ headerConfig, data }: Props) {
         </thead>
         <tbody>
           <tr>
-            {headerConfig.map((val: any) => {
+            {headerConfig.map((val: any, index: number) => {
               return (
-                <td className="p-2 border-gray-200">{val.render(data)}</td>
+                <td key={index} className="p-2 border-gray-200">
+                  {val.render(data)}
+                </td>
               );
             })}
           </tr>

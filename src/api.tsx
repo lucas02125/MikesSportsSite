@@ -5,12 +5,15 @@ interface SearchResponse {
   data: ClubCompetitions[];
 }
 
-export const getClubCompetition = async (query: string) => {
+export const getClubCompetition = async (
+  coutnryCode: string,
+  competitionType: string
+) => {
   try {
     const data = await axios.get(
       `https://api-football-v1.p.rapidapi.com/v3/leagues/`,
       {
-        params: { id: query, current: true },
+        params: { code: coutnryCode, type: competitionType, current: true },
         headers: {
           "X-RapidAPI-Key": process.env.REACT_APP_API_KEY,
           "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",

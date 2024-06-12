@@ -1,23 +1,31 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import logo from "./logo.png";
 import { Link } from "react-router-dom";
 
-interface Props {
-  leagues: { id: number; name: string; icon: string }[];
-}
+interface Props {}
 
-const Navbar = ({ leagues }: Props) => {
+const leagues = ["GB", "IT", "FR", "DE", "ES"];
+const Navbar = (props: Props) => {
   const [isListVisible, setListVisible] = useState(false);
-  //const [selectLeague, setSelectedLeague] = useState(null);
+  const [currentCountry, setCountry] = useState<string>(leagues[0]);
 
   const handleMouseEnter = () => {
     setListVisible(true);
   };
 
-  // const handleSVGClick = (league: any) => {
-  //   setSelectedLeague(league);
-  //   console.log(league.name);
-  // };
+  const handleMouseLeave = () => {
+    setListVisible(false);
+  };
+
+  const testingClick = (picked: any) => {
+    //console.log(picked);
+    setCountry(picked);
+    return <Link to={"/league/" + currentCountry}></Link>;
+  };
+
+  const getCountry = (): string => {
+    return currentCountry;
+  };
 
   return (
     <nav className="relative container mx-auto p-6">
@@ -27,8 +35,11 @@ const Navbar = ({ leagues }: Props) => {
             <img src={logo} alt="" />
           </Link>
           <div className="hidden font-bold lg:flex">
-            <Link to="/teams" className="text-black hover:text-darkBlue">
-              Team
+            <Link
+              to={"/league/" + currentCountry}
+              className="text-black hover:text-darkBlue"
+            >
+              League
             </Link>
           </div>
           <div className="hidden font-bold lg:flex">
@@ -55,45 +66,49 @@ const Navbar = ({ leagues }: Props) => {
           >
             Signup
           </a>
-
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6 "
+          <b>{currentCountry}</b>
+          <div
+            className="px-4 py-3 relative"
             onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m19.5 8.25-7.5 7.5-7.5-7.5"
-            />
-          </svg>
-          {isListVisible && (
-            <div
-              style={{
-                backgroundColor: "#fff",
-                border: "1px solid #ccc",
-                padding: "10px",
-              }}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6 "
             >
-              {/* <ul>
-                {leagues.map((league: any) => {
-                  return (
-                    <li
-                      key={league.id}
-                      className="hover:bg-sky-700"
-                      onClick={() => handleSVGClick(league)}
-                    >
-                      {league.icon}
-                    </li>
-                  );
-                })}
-              </ul> */}
-            </div>
-          )}
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m19.5 8.25-7.5 7.5-7.5-7.5"
+              />
+            </svg>
+            {isListVisible && (
+              <div
+                style={{
+                  backgroundColor: "#fff",
+                  border: "1px solid #ccc",
+                  padding: "10px",
+                  left: "100%",
+                  position: "absolute",
+                  top: 0,
+                }}
+              >
+                <ul>
+                  {leagues.map((league: any, index) => {
+                    return (
+                      <li key={index} className="hover:bg-sky-700">
+                        <Link to={"/league/" + league}>{league}</Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </nav>

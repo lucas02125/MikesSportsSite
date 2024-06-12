@@ -1,4 +1,48 @@
+export interface LeagueByType {
+    league: LeagueDetails;
+    country: CountryDetails;
+    season: SeasonDetails;
+}
 
+export interface SeasonDetails {
+    year:number;
+    start: string;
+    end: string;
+    current: boolean;
+    coverage: CoverageDetails;
+}
+
+export interface CoverageDetails {
+    fixtures: FixtureDetails;
+    standings: boolean;
+    players: boolean;
+    top_scorers: boolean;
+    top_assists: boolean;
+    top_cards: boolean;
+    injuries: boolean;
+    predictions: boolean;
+    odds: boolean;
+}
+
+export interface FixtureDetails {
+    events: boolean;
+    lineups: boolean;
+    statistics_fixtures: boolean;
+    statistics_players: boolean;
+}
+
+export interface CountryDetails{
+    name: string;
+    code?: string;
+    flag?: string;
+}
+
+export interface LeagueDetails{
+    id: number;
+    name: string;
+    type: string;
+    logo: string;
+}
 
 export interface ClubCompetitions{
     id: number;

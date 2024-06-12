@@ -19,14 +19,17 @@ const Table = ({ config, data }: Props) => {
     );
   });
 
-  const renderedRows = data.map((rowValue: any) => {
+  const renderedRows = data.map((rowValue: any, index: number) => {
     return (
-      <tr key={rowValue.id}>
+      <tr key={index}>
         {config.map((val: any) => {
           return val.type === "divider" ? (
-            <th className="border-l-4 divide=gray-500"></th>
+            <th key={index} className="border-l-4 divide=gray-500"></th>
           ) : (
-            <td className="p-4 text-left text-xl font-large text-fray-500 uppercase tracking-wider">
+            <td
+              key={index}
+              className="p-4 text-left text-xl font-large text-fray-500 uppercase tracking-wider"
+            >
               {val.render(rowValue)}
             </td>
           );

@@ -9,6 +9,7 @@ import {
   CalculateShotAcc,
   CalculateRedCards,
   SetCaptaincy,
+  GetThisFromFlag,
 } from "../../Components/Helpers/PlayerFormating";
 import Table from "../../Components/Table/Table";
 import Rating from "@mui/material/Rating";
@@ -65,7 +66,15 @@ const statsConfig = [
   {
     label: "Competition",
     render: (stats: PlayerStatistic) => (
-      <Link to={"/league/" + stats.league.id + "/standing"}>
+      <Link
+        to={
+          "/league" +
+          GetThisFromFlag(stats.league.flag) +
+          "/" +
+          stats.league.id +
+          "/standing"
+        }
+      >
         {stats.league.name}
       </Link>
     ),

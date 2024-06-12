@@ -1,5 +1,6 @@
 import { BsEmojiFrown, BsEmojiSmile } from "react-icons/bs";
 import { AiTwotoneCopyrightCircle } from "react-icons/ai";
+import { url } from "inspector";
 
 type Props = {};
 
@@ -20,6 +21,16 @@ export const ConvertCmToFeet = (height: string): string => {
   } else {
     return "NaN";
   }
+};
+
+export const GetThisFromFlag = (flagURL: string): string => {
+  if (flagURL === null) {
+    return "";
+  }
+  const urlPiece = flagURL.split("/")[4];
+  const flagBit = urlPiece.split(".")[0];
+  console.group(flagBit);
+  return "/" + flagBit;
 };
 
 export const CalculateShotAcc = (
