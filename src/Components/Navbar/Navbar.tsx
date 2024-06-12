@@ -1,13 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import logo from "./logo.png";
 import { Link } from "react-router-dom";
+import path from "path";
 
 interface Props {}
 
 const leagues = ["GB", "IT", "FR", "DE", "ES"];
+
 const Navbar = (props: Props) => {
   const [isListVisible, setListVisible] = useState(false);
   const [currentCountry, setCountry] = useState<string>(leagues[0]);
+  const dataToPass = { name: "John", age: 25 };
 
   const handleMouseEnter = () => {
     setListVisible(true);
@@ -20,11 +23,6 @@ const Navbar = (props: Props) => {
   const testingClick = (picked: any) => {
     //console.log(picked);
     setCountry(picked);
-    return <Link to={"/league/" + currentCountry}></Link>;
-  };
-
-  const getCountry = (): string => {
-    return currentCountry;
   };
 
   return (
@@ -36,14 +34,18 @@ const Navbar = (props: Props) => {
           </Link>
           <div className="hidden font-bold lg:flex">
             <Link
-              to={"/league/" + currentCountry}
+              to={`/league/${currentCountry}`}
               className="text-black hover:text-darkBlue"
             >
               League
             </Link>
           </div>
           <div className="hidden font-bold lg:flex">
-            <Link to="/search" className="text-black hover:text-darkBlue">
+            <Link
+              to={"/search"}
+              state={currentCountry}
+              className="text-black hover:text-darkBlue"
+            >
               Search
             </Link>
           </div>
@@ -100,7 +102,11 @@ const Navbar = (props: Props) => {
                 <ul>
                   {leagues.map((league: any, index) => {
                     return (
-                      <li key={index} className="hover:bg-sky-700">
+                      <li
+                        key={index}
+                        className="hover:bg-sky-700"
+                        onClick={() => testingClick(league)}
+                      >
                         <Link to={"/league/" + league}>{league}</Link>
                       </li>
                     );

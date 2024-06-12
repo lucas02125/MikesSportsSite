@@ -67,13 +67,9 @@ const statsConfig = [
     label: "Competition",
     render: (stats: PlayerStatistic) => (
       <Link
-        to={
-          "/league" +
-          GetThisFromFlag(stats.league.flag) +
-          "/" +
-          stats.league.id +
-          "/standing"
-        }
+        to={`/league${GetThisFromFlag(stats.league.flag)}/${
+          stats.league.id
+        }/standing`}
       >
         {stats.league.name}
       </Link>

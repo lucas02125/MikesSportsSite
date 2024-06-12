@@ -27,6 +27,24 @@ export const getClubCompetition = async (
   }
 };
 
+export const getPlayerSearch = async (leagueID: string, playerName: string) => {
+  try {
+    const data = await axios.get(
+      "https://api-football-v1.p.rapidapi.com/v3/players",
+      {
+        params: { league: leagueID, season: "2023", search: playerName },
+        headers: {
+          "X-RapidAPI-Key": process.env.REACT_APP_API_KEY,
+          "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
+        },
+      }
+    );
+    return data;
+  } catch (error: any) {
+    console.log(`Error when searching player: ${error.message}`);
+  }
+};
+
 export const getLeagueStandings = async (query: string) => {
   try {
     const data = await axios.get(
