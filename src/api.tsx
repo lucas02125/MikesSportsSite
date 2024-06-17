@@ -5,6 +5,7 @@ interface SearchResponse {
   data: ClubCompetitions[];
 }
 
+//Returns a list of all competitions for a given country (League/Cup)
 export const getClubCompetition = async (
   coutnryCode: string,
   competitionType: string
@@ -27,6 +28,7 @@ export const getClubCompetition = async (
   }
 };
 
+//Returns a players information from a given search (only 2023 year)
 export const getPlayerSearch = async (leagueID: string, playerName: string) => {
   try {
     const data = await axios.get(
@@ -45,12 +47,13 @@ export const getPlayerSearch = async (leagueID: string, playerName: string) => {
   }
 };
 
-export const getLeagueStandings = async (query: string) => {
+//Returns the current standings of a given League
+export const getLeagueStandings = async (leagueID: string) => {
   try {
     const data = await axios.get(
       "https://api-football-v1.p.rapidapi.com/v3/standings",
       {
-        params: { league: query, season: "2023" },
+        params: { league: leagueID, season: "2023" },
         headers: {
           "X-RapidAPI-Key": process.env.REACT_APP_API_KEY,
           "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
@@ -64,12 +67,13 @@ export const getLeagueStandings = async (query: string) => {
   }
 };
 
-export const getSquadForTeam = async (query: string) => {
+//Returns the current squad of a given team
+export const getSquadForTeam = async (teamID: string) => {
   try {
     const data = await axios.get(
       "https://api-football-v1.p.rapidapi.com/v3/players/squads",
       {
-        params: { team: query },
+        params: { team: teamID },
         headers: {
           "X-RapidAPI-Key": process.env.REACT_APP_API_KEY,
           "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
@@ -82,15 +86,16 @@ export const getSquadForTeam = async (query: string) => {
   }
 };
 
+//Returns statistics of a given player (2023 only)
 export const getPlayerStatistic = async (
-  player: string | undefined,
-  club: string | undefined
+  playerID: string | undefined,
+  clubID: string | undefined
 ) => {
   try {
     const data = await axios.get(
       "https://api-football-v1.p.rapidapi.com/v3/players",
       {
-        params: { id: player, team: club, season: "2023" },
+        params: { id: playerID, team: clubID, season: "2023" },
         headers: {
           "X-RapidAPI-Key": process.env.REACT_APP_API_KEY,
           "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
