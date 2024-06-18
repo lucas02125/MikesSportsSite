@@ -1,7 +1,69 @@
+import { TemplateHead } from "typescript";
+
 export interface LeagueByType {
     league: LeagueDetails;
     country: CountryDetails;
     season: SeasonDetails;
+}
+
+export interface H2HDetails {
+    fixture: FixtureStats;
+    league: ClubCompetitions;
+    teams: TeamInfo;
+    goals: GoalStats;
+    score: ScoreStats;
+}
+
+export interface GoalStats {
+    halftime: GoalStats;
+    fulltime: GoalStats;
+    extratime: GoalStats?;
+    penalty: GoalStats?;
+}
+
+export interface GoalStats {
+    home: number;
+    away: number;
+}
+
+export interface TeamInfo {
+    home: TeamDetails;
+    away: TeamDetails;
+}
+
+export interface TeamDetails {
+    id: number;
+    name: string;
+    logo: string;
+    winner: boolean;
+}
+
+export interface FixtureStatus {
+    long: string;
+    short: string;
+    elapsed: number;
+}
+
+export interface HalfInfo {
+    first: number;
+    second: number;
+}
+
+export interface VenueInfo {
+    id:number;
+    name:string;
+    city:string;
+}
+
+export interface FixtureStats {
+    id: number;
+    referee: string;
+    timezone: string;
+    date: string;
+    timestamp: number;
+    period: HalfInfo;
+    venue: VenueInfo;
+    status: FixtureStatus;
 }
 
 export interface SeasonDetails {
@@ -50,6 +112,7 @@ export interface ClubCompetitions{
     name: string;
     flag: string;
     season: number;
+    round: string?;
 }
 
 export interface LeagueStandings{

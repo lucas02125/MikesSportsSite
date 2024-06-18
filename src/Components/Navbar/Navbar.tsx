@@ -50,8 +50,12 @@ const Navbar = (props: Props) => {
             </Link>
           </div>
           <div className="hidden font-bold lg:flex">
-            <Link to="/player" className="text-black hover:text-darkBlue">
-              Players
+            <Link
+              to="/fixture"
+              state={currentCountry}
+              className="text-black hover:text-darkBlue"
+            >
+              Fixtures & Projections
             </Link>
           </div>
           {/* <div className="hidden font-bold lg:flex">

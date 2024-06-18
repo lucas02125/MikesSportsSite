@@ -1,6 +1,6 @@
 import React, { ChangeEvent, SyntheticEvent, useState } from "react";
 import { PlayerInformation, PlayerStatistic } from "../../footballteams";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 import { getPlayerSearch } from "../../api";
 import Search from "../../Components/Search/Search";
 import {
@@ -69,13 +69,14 @@ const getLeagueIDs = (country: string): string[] => {
   }
 };
 
-const SeachPage = (props: Props) => {
+const SearchPage = (props: Props) => {
   let { state } = useLocation();
   const currentLeagueIds = getLeagueIDs(state);
   const [search, setSearch] = useState<string>("");
   const [playerIndex, setPlayerIndex] = useState<PlayerInformation[]>([]);
   const [playerPosition, setPlayerPosition] = useState<string[]>([]);
   const [serverError, setServerError] = useState<string>("");
+  const [isSearching, setIsSearching] = useState<boolean>(false);
 
   //Event handling the text change in the seach bar
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -84,6 +85,7 @@ const SeachPage = (props: Props) => {
 
   //Action for when the user enters players name
   const onSearchSubmit = async (e: SyntheticEvent) => {
+    setIsSearching(true);
     e.preventDefault();
 
     try {
@@ -138,9 +140,13 @@ const SeachPage = (props: Props) => {
         handleSearchChange={handleSearchChange}
         searchValue={search}
       />
-      <Table config={playerConfig} data={combinedPlayerData} />
+      {isSearching && combinedPlayerData.length > 0 ? (
+        <Table config={playerConfig} data={combinedPlayerData} />
+      ) : (
+        <h1>Player not found!</h1>
+      )}
     </div>
   );
 };
 
-export default SeachPage;
+export default SearchPage;

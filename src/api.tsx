@@ -29,12 +29,16 @@ export const getClubCompetition = async (
 };
 
 //Returns a players information from a given search (only 2023 year)
-export const getPlayerSearch = async (leagueID: string, playerName: string) => {
+export const getPlayerSearch = async (
+  leagueID: string,
+  playerName: string,
+  season: string = "2023"
+) => {
   try {
     const data = await axios.get(
       "https://api-football-v1.p.rapidapi.com/v3/players",
       {
-        params: { league: leagueID, season: "2023", search: playerName },
+        params: { league: leagueID, season: season, search: playerName },
         headers: {
           "X-RapidAPI-Key": process.env.REACT_APP_API_KEY,
           "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
@@ -48,12 +52,15 @@ export const getPlayerSearch = async (leagueID: string, playerName: string) => {
 };
 
 //Returns the current standings of a given League
-export const getLeagueStandings = async (leagueID: string) => {
+export const getLeagueStandings = async (
+  leagueID: string,
+  season: string = "2023"
+) => {
   try {
     const data = await axios.get(
       "https://api-football-v1.p.rapidapi.com/v3/standings",
       {
-        params: { league: leagueID, season: "2023" },
+        params: { league: leagueID, season: season },
         headers: {
           "X-RapidAPI-Key": process.env.REACT_APP_API_KEY,
           "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
@@ -86,16 +93,40 @@ export const getSquadForTeam = async (teamID: string) => {
   }
 };
 
+//Returns the fixture list for teams in a given league/date
+export const getFixtures = async (
+  date: string,
+  leagueId: string,
+  season: string = "2023"
+) => {
+  try {
+    const data = await axios.get(
+      "https://api-football-v1.p.rapidapi.com/v3/fixtures",
+      {
+        params: { date: date, league: leagueId, season: season },
+        headers: {
+          "X-RapidAPI-Key": process.env.REACT_APP_API_KEY,
+          "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
+        },
+      }
+    );
+    return data;
+  } catch (error: any) {
+    console.log("Error message from API: ", error.message);
+  }
+};
+
 //Returns statistics of a given player (2023 only)
 export const getPlayerStatistic = async (
   playerID: string | undefined,
-  clubID: string | undefined
+  clubID: string | undefined,
+  season: string = "2023"
 ) => {
   try {
     const data = await axios.get(
       "https://api-football-v1.p.rapidapi.com/v3/players",
       {
-        params: { id: playerID, team: clubID, season: "2023" },
+        params: { id: playerID, team: clubID, season: season },
         headers: {
           "X-RapidAPI-Key": process.env.REACT_APP_API_KEY,
           "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
