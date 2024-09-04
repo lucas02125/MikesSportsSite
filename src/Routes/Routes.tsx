@@ -25,6 +25,7 @@ export const router = createBrowserRouter([
         element: <LeaguePage />,
         children: [{ path: ":ticker/standing", element: <StandingsPage /> }],
       },
+      { path: "fixture", element: <FixturePage /> },
       {
         path: "club/:club",
         element: <TeamPage />,
@@ -36,7 +37,6 @@ export const router = createBrowserRouter([
         ],
       },
       { path: "player/:player/:position", element: <PlayerPage /> },
-      { path: "fixture", element: <FixturePage /> },
     ],
   },
 ]);

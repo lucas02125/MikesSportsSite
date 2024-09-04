@@ -31,19 +31,6 @@ const LeaguePage = (props: Props) => {
   let { countrycode } = useParams();
 
   useEffect(() => {
-    const fetchedData = async () => {
-      //Test it out first then try to leave initial load to be empty
-      //Allow user to choose which
-      const result = await getClubCompetition(countrycode!, competitionType[0]);
-      let responseData = result!.data.response;
-      const leagueArray = responseData.map((item: any) => item.league);
-      setLeagueOnly(leagueArray);
-    };
-
-    fetchedData();
-  }, []);
-
-  useEffect(() => {
     const testCountryChange = async () => {
       const newResult = await getClubCompetition(
         countrycode!,

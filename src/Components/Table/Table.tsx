@@ -25,6 +25,8 @@ const Table = ({ config, data }: Props) => {
         {config.map((val: any) => {
           return val.type === "divider" ? (
             <th key={index} className="border-l-4 divide=gray-500"></th>
+          ) : val.type === "contre" ? (
+            <div className="p-4 ">{val.scoreline(rowValue)}</div>
           ) : (
             <td
               key={index}
@@ -40,10 +42,8 @@ const Table = ({ config, data }: Props) => {
 
   return (
     <div className="bg-white shadowed rounded-lg p-4 sm:p-6 xl:p-8">
-      <table className="mx-auto">
-        <thead className="min-w-full divide-y divide=gray-200 m-5">
-          {renderedHeader}
-        </thead>
+      <table className="mx-auto divide-y">
+        <thead className="min-w-full divide-gray-200">{renderedHeader}</thead>
         <tbody>{renderedRows}</tbody>
       </table>
     </div>

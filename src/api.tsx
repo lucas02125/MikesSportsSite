@@ -94,16 +94,13 @@ export const getSquadForTeam = async (teamID: string) => {
 };
 
 //Returns the fixture list for teams in a given league/date
-export const getFixtures = async (
-  date: string,
-  leagueId: string,
-  season: string = "2023"
-) => {
+export const getFixtures = async (date: string, leagueId: string) => {
   try {
+    const year = date.substring(0, 4);
     const data = await axios.get(
       "https://api-football-v1.p.rapidapi.com/v3/fixtures",
       {
-        params: { date: date, league: leagueId, season: season },
+        params: { date: date, league: leagueId, season: year },
         headers: {
           "X-RapidAPI-Key": process.env.REACT_APP_API_KEY,
           "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",

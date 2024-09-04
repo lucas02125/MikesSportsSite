@@ -4,6 +4,7 @@ import { PlayerSquads, TeamInformation } from "../../footballteams";
 import { getSquadForTeam } from "../../api";
 import Title from "../../Components/Title/Title";
 import PositionProfile from "../../Components/PositionProfile/PositionProfile";
+import Spinner from "../../Components/Spinner/Spinner";
 
 interface Props {}
 
@@ -62,7 +63,9 @@ const TeamPage = (props: Props) => {
         //The outlet here will redirect the routing to the player page
         <Outlet />
       ) : (
-        <h1>The squad does not exist</h1>
+        <div className="flex justify-center items-center">
+          <Spinner />
+        </div>
       )}
     </>
   );
